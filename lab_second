@@ -1,0 +1,197 @@
+# -*- coding: utf-8 -*-
+
+import matplotlib.pyplot as gph
+#import matplotlib.pyplot as gph2 
+import math
+
+def function(x,y):
+    return 30*y*(x-0.2)*(x-0.7)
+    
+N=10000
+
+x=[0]
+
+y=[0.1]
+
+
+#print 1/10
+
+h=1./N
+#print h
+
+step = h
+#print step
+
+t_x = 0
+
+t_y = 0.1
+
+i = 1
+#Эйлер явный
+while(i <=N):
+    #print "Значение Функции"
+    #print t_y + h*function(t_x, t_y)
+    t_y = t_y + h*function(t_x, t_y)
+    y.append(t_y)
+    t_x += step
+    x.append(t_x)    
+
+    i+=1
+
+
+
+gph.plot(x,y)
+
+#gph.title('Euler')
+
+#print(x)
+#print(y)
+
+gph.show()
+#Euler_end'''
+
+#Эйлер неявный
+x=[0]
+
+y=[0.1]
+
+
+#print 1/10
+
+'''
+N=100
+h=1./N
+print h
+
+step = h
+print step'''
+
+t_x = step
+
+t_y = 0.1
+
+i = 1
+
+while(i <=N):
+    #print i
+    #print "Значение Функции"
+    #print t_y + h*function(t_x, t_y)
+    t_y = t_y / (1-h*30*(t_x - 0.2)*(t_x - 0.7))
+    #print (1-h*30*(t_x - 0.2)*(t_x - 0.7))
+    y.append(t_y)
+    x.append(t_x)
+    t_x += step
+    
+    i+=1
+
+
+gph.plot(x,y)
+
+#print(x)
+#print(y)
+
+#gph.title('Eule')
+
+gph.show()
+
+
+#Адамс явный второго порядка
+x=[0]
+
+y=[0.1]
+
+#print 1/10
+
+'''
+N=100
+
+h=1./N
+print h
+
+step = h
+print step'''
+
+t_x = 0
+
+t_y = 0.1
+
+k1 = h * function(0,0.1)
+k2 = h * function(step,0.1+k1)
+k3 = h * function(0 + step/2, 0.1 + k1/4 + k2/4)
+
+y1 = y[0] + 1./6*k1 + 1./6*k2 + 4./6*k3
+y.append(y1)
+
+x.append(step)
+
+t_x = step # потому что в цикле считаем со второго шага
+t_y = y1
+i = 2
+
+while(i<=N):
+    #print "Значение Функции"
+    #print t_y + h*function(t_x, t_y)
+    t_y = t_y + h/2*(3*function(t_x, t_y) - function(t_x- step, y[i-1]))
+    y.append(t_y)
+    t_x += step
+    x.append(t_x)    
+
+    i+=1
+
+#print x
+
+#print y
+
+
+gph.plot(x,y)
+
+print(x)
+print(y)
+
+gph.show()
+
+
+
+
+
+#точное решение
+x=[0]
+
+y=[0.1]
+
+#print 1/10
+
+'''
+
+N=100
+
+h=1./N
+print h'''
+
+step = h
+#print step
+
+t_x = step
+
+t_y = 0.1
+
+i = 1
+
+while(i<=N):
+    #print "Значение Функции"
+    #print t_y + h*function(t_x, t_y)
+    t_y = 0.1 * math.exp(10*t_x*t_x*t_x - 13.5*t_x*t_x + 4.2*t_x)
+    y.append(t_y)
+    x.append(t_x)
+    t_x += step
+
+    i+=1
+
+#print x
+
+#print y
+
+
+gph.plot(x,y)
+
+gph.show()
